@@ -18,23 +18,30 @@ var funBackOrFront = function()
 funBackOrFront();
 
 var boxList = $(".box");
-boxList.each(function()
+boxList.each(
+        function()
         {
-            $(this).bind("click", function(){
-                // 切换的顺序如下
-                // 1. 当前在前显示的元素翻转90度隐藏, 动画时间225毫秒
-                // 2. 结束后，之前显示在后面的元素逆向90度翻转显示
-                // 3. 完成翻面效果
-                eleList = $(this).find(".list");
+            $(this).bind("click", function()
+                {
+                    var parent = $(this).parent();
+                    
+                    if (parent.hasClass("active")) {
 
-                funBackOrFront();
+                        // 切换的顺序如下
+                        // 1. 当前在前显示的元素翻转90度隐藏, 动画时间225毫秒
+                        // 2. 结束后，之前显示在后面的元素逆向90度翻转显示
+                        // 3. 完成翻面效果
+                        eleList = $(this).find(".list");
 
-                eleFront.addClass("out").removeClass("in");
-                setTimeout(function(){
-                    eleBack.addClass("in").removeClass("out");
-                    // 重新确定正反元素
-                    funBackOrFront();
-                }, 225);
-                return false;
-            });
+                        funBackOrFront();
+
+                        eleFront.addClass("out").removeClass("in");
+                        setTimeout(function(){
+                            eleBack.addClass("in").removeClass("out");
+                            // 重新确定正反元素
+                            funBackOrFront();
+                        }, 225);
+                    }
+                    return false;
+                });
         });
